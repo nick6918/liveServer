@@ -55,3 +55,9 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#pyc Doc
+*.pyc
+
+#project
+settings.py

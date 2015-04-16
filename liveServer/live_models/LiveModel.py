@@ -6,10 +6,10 @@ class LiveModel(object):
 
 	def __init__(self):
 		super(LiveModel, self).__init__()
-		self.cursor = connection.cursor
+		self.cursor = connection.cursor()
 
 	def query_backup(self, sid, vid):
-		exe_string = "SELECT backUrl, backState FROM live_backup WHERE vid=%s, sid=%s"
+		exe_string = "SELECT backUrl, backState FROM live_backup WHERE vid=%s and sid=%s"
 		self.cursor.execute(exe_string, (vid , sid))
 		items = self.cursor.fetchone()
 		if items:
@@ -24,8 +24,8 @@ class LiveModel(object):
 			self.cursor.execute(exe_string, (vid, sid))
 			return {"nextState":1}
 
-	def update_backup(self, sid, vid, state, backUrl):
-		exe_string = "UPDATE live_backup Set backUrl=%s, backState=%s WHERE vid=%s, sid=%s"
+	def update_backup(self, backUrl, state, sid, vid):
+		exe_string = "UPDATE live_backup Set backUrl=%s, backState=%s WHERE vid=%s and sid=%s"
 		self.cursor.execute(exe_string, (backUrl,  state, vid , sid))
 		return True
 

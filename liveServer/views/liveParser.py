@@ -1,6 +1,7 @@
 import re, urllib2
 from BeautifulSoup import BeautifulSoup
 from live_libs.utils import Jsonify
+from live_models.LiveModel import LiveModel
 from datetime import datetime
 import logging
 logger = logging.getLogger('appserver')
@@ -17,13 +18,13 @@ def get_client_ip(request):
 
 def parseUrl(request):
 	try:
-		step = request.POST.get("step", 3)
+		step = request.GET.get("step", 3)
 		step = int(step)
 		logger.debug("#LIVE#: "+str(get_client_ip(request))+" REQUESTED IN STEP "+str(step))
-		vid = request.POST.get("vid", None)
-		sid = request.POST.get("vid", None)
+		vid = request.GET.get("vid", None)
+		sid = request.GET.get("sid", None)
 		if step == 0:
-			url = request.POST.get("url", None)
+			url = request.GET.get("url", None)
 			result = LiveModel().query_backup(sid, vid)
 			logger.debug("#LIVE#: "+str(get_client_ip(request))+" REQUESTED WITH URL "+ str(url))
 			nextState = result["nextState"]
@@ -58,16 +59,17 @@ def parseUrl(request):
 			else:
 				return Jsonify({"status":False, "newState":1, "error":"904 M3U8 FILE ERROR"})
 		elif step == 2:
-			LiveModel().update_backup("", "ABANDONED", sid, vid)
+			LiveModel().update_backup("", "STOPPED", sid, vid)
 			logger.error("#LIVE# VIDEO CANNOT PLAYED FOR "+str((sid, vid)))
-			return Jsonify({"status":False, "newState":4})
+			return Jsonify({"status":True, "newState":4})
 		elif step == 3:
-			logger.error("#LIVE# VIDEO BACKUP OVERDUE FOR "+str((sid, vid)))
-			url = request.POST.get("url", None)
+			logger.debug("#LIVE# VIDEO BACKUP OVERDUE FOR "+str((sid, vid)))
+			url = request.GET.get("url", None)
 			if url:
 				newUrl = firstStepHelper(url)
 				if newUrl:
 					result = {"status":True, "newUrl": newUrl, "newState": 1}
+					LiveModel().update_backup("", u"UNUSED", sid, vid)
 					logger.debug("#LIVE#: "+str(get_client_ip(request))+" RESPONSE WITH URL "+ str(newUrl))
 				else:
 					result = {"status":False, "newState": 0, "error": "903 URL parsing failed"}

@@ -18,13 +18,13 @@ def get_client_ip(request):
 
 def parseUrl(request):
 	try:
-		step = request.GET.get("step", 3)
+		step = request.POST.get("step", 3)
 		step = int(step)
 		logger.debug("#LIVE#: "+str(get_client_ip(request))+" REQUESTED IN STEP "+str(step))
-		vid = request.GET.get("vid", None)
-		sid = request.GET.get("sid", None)
+		vid = request.POST.get("vid", None)
+		sid = request.POST.get("sid", None)
 		if step == 0:
-			url = request.GET.get("url", None)
+			url = request.POST.get("url", None)
 			result = LiveModel().query_backup(sid, vid)
 			logger.debug("#LIVE#: "+str(get_client_ip(request))+" REQUESTED WITH URL "+ str(url))
 			nextState = result["nextState"]

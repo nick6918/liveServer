@@ -58,7 +58,9 @@ def parseUrl(request):
 				LiveModel().update_backup(newUrl, "BACKUPED", sid, vid)
 				return Jsonify({"status":True, "newState":2, "newUrl":newUrl})
 			else:
-				return Jsonify({"status":False, "newState":1, "error":"904 M3U8 FILE ERROR"})
+				LiveModel().update_backup("", "STOPPED", sid, vid)
+				logger.error("#LIVE# VIDEO FILE CANNOT PARSE FOR "+str((sid, vid)))
+				return Jsonify({"status":False, "newState":4, "error":"904 M3U8 FILE ERROR"})
 		elif step == 2:
 			LiveModel().update_backup("", "STOPPED", sid, vid)
 			logger.error("#LIVE# VIDEO CANNOT PLAYED FOR "+str((sid, vid)))

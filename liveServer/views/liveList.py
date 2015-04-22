@@ -33,9 +33,9 @@ def liveListHelper(cdate):
 			currentInfo["url"] = currentUrl
 			curState = item[LIVEINFO.STATE]					#True: 正在直播, False: 直播结束
 			if curState=="live":
-				currentInfo["state"]==True
+				currentInfo["state"]=True
 			else:
-				currentInfo["state"]==False
+				currentInfo["state"]=False
 		currentInfo["p"] = 0
 		currentInfo["lid"] = 0
 		currentInfo["start"] = item[LIVEINFO.CTIME]

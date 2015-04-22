@@ -31,7 +31,7 @@ def liveListHelper(cdate):
 				currentInfo["state"] = False					#直播时间未过， 未匹配到URL， 拉取且客户端抹灰
 		else:
 			currentInfo["url"] = currentUrl
-			currentInfop["state"] = item[LIVEINFO.STATE]	#True: 正在直播, False: 直播结束
+			currentInfo["state"] = item[LIVEINFO.STATE]	#True: 正在直播, False: 直播结束
 		currentInfo["p"] = 0
 		currentInfo["lid"] = 0
 		currentInfo["start"] = item[LIVEINFO.CTIME]

@@ -43,6 +43,8 @@ def liveListHelper(cdate):
 		currentInfo["name"] = item[LIVEINFO.NAME]
 		currentInfo["title"] = item[LIVEINFO.TITLE]
 		currentInfo["vid"] = item[LIVEINFO.VID]
+		picType = item[LIVEINFO.PICTURE]
+		currentInfo["picUrl"] = "http://staticimage.yiqiding.com/hotvideo/"+picType+".png"
 		result.append(currentInfo)
 	for item in nextList:
 		currentInfo = {}
@@ -55,5 +57,7 @@ def liveListHelper(cdate):
 		currentInfo["title"] = item[LIVEINFO.TITLE]
 		currentInfo["state"] = True
 		currentInfo["vid"] = item[LIVEINFO.VID]
+		picType = item[LIVEINFO.PICTURE]
+		currentInfo["picUrl"] = "http://staticimage.yiqiding.com/hotvideo/"+picType+".png"
 		result.append(currentInfo)
 	return result

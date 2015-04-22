@@ -20,5 +20,6 @@ class LIVEINFO:
 	URL = 5
 	STATE = 6
 	VID = 7
+	PICTURE = 8
 	def __init__(self):
         	pass

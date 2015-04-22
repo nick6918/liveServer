@@ -1,11 +1,12 @@
 import logging
 from django.db import connection
+from datetime import datetime, timedelta
 logger = logging.getLogger('appserver')
 
 class LiveModel(object):
 
 	def __init__(self):
-		super(LiveModel, self).__init__()
+		super(LiveModel, self).__init__()  
 		self.cursor = connection.cursor()
 
 	def query_backup(self, sid, vid):
@@ -29,7 +30,14 @@ class LiveModel(object):
 		self.cursor.execute(exe_string, (backUrl,  state, vid , sid))
 		return True
 
-
+	def get_live_list(self, dtime):
+		exe_string = "SELECT ld.name, ld.title, ld.ctime, ld.dtime, ld.datetime, ml.url, ml.state FROM live_daylist as ld LEFT JOIN m3u8live as ml on ld.lid=ml.lid WHERE ld.datetime = %s"
+		if isinstance(dtime, datetime):
+			self.cursor.execute(exe_string, (dtime.now().strftime("%Y-%m-%d")))
+		else:
+			self.cursor.execute(exe_string, (dtime, ))
+		itemList = self.cursor.fetchall()
+		return itemList
 
 
 

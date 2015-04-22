@@ -10,3 +10,14 @@ class Jsonify(HttpResponse):
 		self['Content-Type']='application/json; charset=utf-8'
 		self['Vary']= 'Accept-Encoding'
 		self['Content-Length'] = len(self.content)
+
+class LIVEINFO:
+	NAME = 0
+	TITLE = 1
+	CTIME = 2
+	DTIME = 3
+	DATETIME = 4
+	URL = 5
+	STATE = 6
+	def __init__(self):
+        	pass

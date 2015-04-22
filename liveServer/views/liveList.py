@@ -31,11 +31,14 @@ def liveListHelper(cdate):
 				currentInfo["state"] = False					#直播时间未过， 未匹配到URL， 拉取且客户端抹灰
 		else:
 			currentInfo["url"] = currentUrl
-			currentInfo["state"] = item[LIVEINFO.STATE]		#True: 正在直播, False: 直播结束
+			curState = item[LIVEINFO.STATE]					#True: 正在直播, False: 直播结束
+			if curState=="live":
+				currentInfo["state"]==True
+			else:
+				currentInfo["state"]==False
 		currentInfo["p"] = 0
 		currentInfo["lid"] = 0
 		currentInfo["start"] = item[LIVEINFO.CTIME]
-		currentInfo["origin"] = item[LIVEINFO.URL]
 		currentInfo["start"] = item[LIVEINFO.CTIME]
 		currentInfo["name"] = item[LIVEINFO.NAME]
 		currentInfo["title"] = item[LIVEINFO.TITLE]
@@ -47,8 +50,6 @@ def liveListHelper(cdate):
 		currentInfo["state"] = False
 		currentInfo["p"] = 1
 		currentInfo["lid"] = 0
-		currentInfo["start"] = item[LIVEINFO.CTIME]
-		currentInfo["origin"] = item[LIVEINFO.URL]
 		currentInfo["start"] = item[LIVEINFO.CTIME]
 		currentInfo["name"] = item[LIVEINFO.NAME]
 		currentInfo["title"] = item[LIVEINFO.TITLE]

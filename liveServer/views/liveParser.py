@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re, urllib2
 from BeautifulSoup import BeautifulSoup
 from live_libs.utils import Jsonify

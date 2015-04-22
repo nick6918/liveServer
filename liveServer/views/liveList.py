@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from live_libs.utils import LIVEINFO, Jsonify
 from live_models.LiveModel import LiveModel
 from datetime import datetime, timedelta

@@ -31,7 +31,7 @@ class LiveModel(object):
 		return True
 
 	def get_live_list(self, dtime):
-		exe_string = "SELECT ld.name, ld.title, ld.ctime, ld.dtime, ld.datetime, ml.url, ml.state FROM live_daylist as ld LEFT JOIN m3u8live as ml on ld.lid=ml.lid WHERE ld.datetime = %s"
+		exe_string = "SELECT ld.name, ld.title, ld.ctime, ld.dtime, ld.datetime, ml.url, ml.state FROM live_daylist as ld LEFT JOIN m3u8live as ml on ld.vid=ml.vid WHERE ld.datetime = %s"
 		if isinstance(dtime, datetime):
 			self.cursor.execute(exe_string, (dtime.now().strftime("%Y-%m-%d")))
 		else:

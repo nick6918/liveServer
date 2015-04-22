@@ -31,7 +31,7 @@ def liveListHelper(cdate):
 				currentInfo["state"] = False					#直播时间未过， 未匹配到URL， 拉取且客户端抹灰
 		else:
 			currentInfo["url"] = currentUrl
-			currentInfo["state"] = item[LIVEINFO.STATE]	#True: 正在直播, False: 直播结束
+			currentInfo["state"] = item[LIVEINFO.STATE]		#True: 正在直播, False: 直播结束
 		currentInfo["p"] = 0
 		currentInfo["lid"] = 0
 		currentInfo["start"] = item[LIVEINFO.CTIME]
@@ -39,6 +39,7 @@ def liveListHelper(cdate):
 		currentInfo["start"] = item[LIVEINFO.CTIME]
 		currentInfo["name"] = item[LIVEINFO.NAME]
 		currentInfo["title"] = item[LIVEINFO.TITLE]
+		currentInfo["vid"] = item[LIVEINFO.VID]
 		result.append(currentInfo)
 	for item in nextList:
 		currentInfo = {}
@@ -52,5 +53,6 @@ def liveListHelper(cdate):
 		currentInfo["name"] = item[LIVEINFO.NAME]
 		currentInfo["title"] = item[LIVEINFO.TITLE]
 		currentInfo["state"] = True
+		currentInfo["vid"] = item[LIVEINFO.VID]
 		result.append(currentInfo)
 	return result

@@ -19,5 +19,6 @@ class LIVEINFO:
 	DATETIME = 4
 	URL = 5
 	STATE = 6
+	VID = 7
 	def __init__(self):
         	pass

@@ -36,7 +36,7 @@ def liveListHelper(cdate):
 				currentInfo["state"]=True
 			else:
 				currentInfo["state"]=False
-		currentInfo["p"] = 0
+		currentInfo["dateCount"] = 0
 		currentInfo["lid"] = 0
 		currentInfo["start"] = item[LIVEINFO.CTIME]
 		currentInfo["start"] = item[LIVEINFO.CTIME]
@@ -50,12 +50,12 @@ def liveListHelper(cdate):
 		currentInfo = {}
 		currentInfo["url"] = item[LIVEINFO.URL]
 		currentInfo["state"] = False
-		currentInfo["p"] = 1
+		currentInfo["dateCount"] = 1
 		currentInfo["lid"] = 0
 		currentInfo["start"] = item[LIVEINFO.CTIME]
 		currentInfo["name"] = item[LIVEINFO.NAME]
 		currentInfo["title"] = item[LIVEINFO.TITLE]
-		currentInfo["state"] = True
+		currentInfo["state"] = False
 		currentInfo["vid"] = item[LIVEINFO.VID]
 		picType = item[LIVEINFO.PICTURE]
 		currentInfo["picUrl"] = "http://staticimage.yiqiding.com/hotvideo/"+picType+".png"

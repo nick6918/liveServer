@@ -28,22 +28,26 @@ def parseUrl(request):
 			url = request.POST.get("url", None)
 			result = LiveModel().query_backup(sid, vid)
 			logger.debug("#LIVE#: "+str(get_client_ip(request))+" REQUESTED WITH URL "+ str(url))
-			nextState = result["nextState"]
-			if nextState == 1:	
-				if url:
-					newUrl = firstStepHelper(url)
-					if newUrl:
-						result = {"status":True, "newUrl": newUrl, "newState": 1}
-						logger.debug("#LIVE#: "+str(get_client_ip(request))+" RESPONSE WITH URL "+ str(newUrl))
+			try:
+				nextState = result["nextState"]
+				if nextState == 1:	
+					if url:
+						newUrl = firstStepHelper(url)
+						if newUrl:
+							result = {"status":True, "newUrl": newUrl, "newState": 1}
+							logger.debug("#LIVE#: "+str(get_client_ip(request))+" RESPONSE WITH URL "+ str(newUrl))
+						else:
+							result = {"status":False, "newState": 0, "error": "903 URL parsing failed"}
 					else:
-						result = {"status":False, "newState": 0, "error": "903 URL parsing failed"}
+						result = {"status":False, "newState": 0, "error": "902 URL not catched"}
+					return Jsonify(result)
+				elif nextState == 3:
+					return Jsonify({"status":True, "newState": 3, "newUrl":result["url"]})
 				else:
-					result = {"status":False, "newState": 0, "error": "902 URL not catched"}
-				return Jsonify(result)
-			elif nextState == 3:
-				return Jsonify({"status":True, "newState": 3, "newUrl":result["url"]})
-			else:
-				return Jsonify({"status":True, "newState": 4})
+					return Jsonify({"status":True, "newState": 4})
+			except Exception, e:
+				logger.error(e)
+				return Jsonify({"status":False, "newState": 4})
 		elif step == 1:
 			curFile = request.FILES.get("file", None)
 			data=""

@@ -39,6 +39,13 @@ class LiveModel(object):
 		itemList = self.cursor.fetchall()
 		return itemList
 
+	def finish_live(self, vid):
+		exe_string = "UPDATE m3u8live SET state = %s WHERE vid = %s"
+		self.cursor.execute(exe_string, ("finish", vid))
+		return True
+
+
+
 
 
 

@@ -67,6 +67,7 @@ def parseUrl(request):
 				return Jsonify({"status":False, "newState":4, "error":"904 M3U8 FILE ERROR"})
 		elif step == 2:
 			LiveModel().update_backup("", "STOPPED", sid, vid)
+			LiveModel().finish_live(vid)
 			logger.error("#LIVE# VIDEO CANNOT PLAYED FOR "+str((sid, vid)))
 			return Jsonify({"status":True, "newState":4})
 		elif step == 3:
